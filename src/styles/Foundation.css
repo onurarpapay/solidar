@@ -1,0 +1,69 @@
+.foundation {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.foundation h3 {
+  color: white;
+  font-size: 1.1em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  margin: 0;
+}
+
+.foundation-piles {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.foundation-pile {
+  width: var(--card-width);
+  height: var(--card-height);
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  border-radius: var(--card-border-radius);
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.foundation-pile:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.pile-label {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: white;
+  font-size: 1.5em;
+  opacity: 0.7;
+}
+
+.pile-count {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: white;
+  font-size: 0.8em;
+  opacity: 0.7;
+  font-weight: bold;
+}
+
+.foundation-pile .card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .foundation-piles {
+    gap: 10px;
+  }
+}

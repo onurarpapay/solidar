@@ -1,0 +1,234 @@
+:root {
+  --card-width: 80px;
+  --card-height: 120px;
+  --card-border-radius: 8px;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --red-color: #e74c3c;
+  --black-color: #1a1a1a;
+  --green-color: #27ae60;
+  --light-bg: #f5f5f5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--green-color);
+  color: #333;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+}
+
+.app-header {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.app-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.app-header p {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+.app-main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.game-area {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.app-footer {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 0.9em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Card styles */
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  border: 2px solid #333;
+  border-radius: var(--card-border-radius);
+  background-color: white;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card:active {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card.selected {
+  border: 3px solid #f39c12;
+  box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+}
+
+.card.dragging {
+  opacity: 0.7;
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card-red {
+  border-color: var(--red-color);
+}
+
+.card-black {
+  border-color: var(--black-color);
+}
+
+.card-empty {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  cursor: default;
+}
+
+.card-empty:hover {
+  transform: none;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 5px;
+}
+
+.card-rank {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-suit {
+  font-size: 2em;
+  line-height: 1;
+}
+
+.card-back {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #2c3e50 25%, #34495e 25%, #34495e 50%, #2c3e50 50%, #2c3e50 75%, #34495e 75%, #34495e);
+  background-size: 10px 10px;
+  border-radius: var(--card-border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back-pattern {
+  font-size: 3em;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.card-peek {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: white;
+  border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  overflow: hidden;
+}
+
+.card-peek-rank {
+  font-size: 0.75em;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.card-peek-suit {
+  font-size: 1em;
+  line-height: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  :root {
+    --card-width: 60px;
+    --card-height: 90px;
+  }
+
+  .app-header h1 {
+    font-size: 2em;
+  }
+
+  .game-area {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .app-main {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --card-width: 50px;
+    --card-height: 75px;
+  }
+
+  .app-header h1 {
+    font-size: 1.5em;
+  }
+
+  .app-header {
+    padding: 10px;
+  }
+
+  .app-main {
+    padding: 5px;
+  }
+}
