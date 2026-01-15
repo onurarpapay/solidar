@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type {
   GameState,
   Card,
@@ -16,7 +16,7 @@ import { Foundation } from './components/Foundation';
 import { Tableau } from './components/Tableau';
 import { Stats } from './components/Stats';
 import { CardComponent } from './components/Card';
-import { playMoveSound, playFlipSound, playWinSound } from './utils/sound';
+import { playMoveSound, playFlipSound, playWinSound, playDrawSound } from './utils/sound';
 import './App.css';
 
 // Helper function to deep copy game state for immutability
@@ -40,6 +40,27 @@ function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [dragFrom, setDragFrom] = useState<{ pile: number; index: number } | { source: 'waste' } | null>(null);
   const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
+  const audioInitialized = useRef(false);
+
+  // Initialize audio context on first user interaction
+  useEffect(() => {
+    const initializeAudio = () => {
+      if (!audioInitialized.current) {
+        playMoveSound(); // This will trigger AudioContext creation and resume
+        audioInitialized.current = true;
+        document.removeEventListener('click', initializeAudio);
+        document.removeEventListener('touchstart', initializeAudio);
+      }
+    };
+
+    document.addEventListener('click', initializeAudio);
+    document.addEventListener('touchstart', initializeAudio);
+
+    return () => {
+      document.removeEventListener('click', initializeAudio);
+      document.removeEventListener('touchstart', initializeAudio);
+    };
+  }, []);
 
   // Check if game is won
   useEffect(() => {
@@ -50,7 +71,9 @@ function App() {
         gameWon: true,
         score: newScore,
       }));
-      setTimeout(() => playWinSound(), 300);
+      setTimeout(() => {
+        playWinSound();
+      }, 300);
     }
   }, [gameState]);
 
@@ -59,6 +82,7 @@ function App() {
     const newState = drawFromDeck(gameState);
     newState.moves++;
     setGameState(newState);
+    playDrawSound();
   };
 
   const handleCardClick = (pileIndex: number, cardIndex: number) => {
@@ -281,9 +305,7 @@ function App() {
       y: e.clientY - 60,
     });
     setIsDragging(true);
-  };
-
-  const handleDragDrop = (toPile: number) => {
+  };  const handleDragDrop = (toPile: number) => {
     if (!isDragging || !dragFrom) {
       setIsDragging(false);
       setDragFrom(null);
@@ -326,6 +348,7 @@ function App() {
       setGameState(newState);
       setIsDragging(false);
       setDragFrom(null);
+      playMoveSound();
       return;
     }
 
@@ -361,6 +384,7 @@ function App() {
     // Flip card below in source
     if (newState.tableau[fromPile].length > 0) {
       newState.tableau[fromPile][newState.tableau[fromPile].length - 1].faceUp = true;
+      playFlipSound();
     }
 
     // Add to destination
@@ -374,6 +398,7 @@ function App() {
     setGameState(newState);
     setIsDragging(false);
     setDragFrom(null);
+    playMoveSound();
   };
 
   const handleFoundationDragDrop = (suit: string) => {
@@ -454,6 +479,7 @@ function App() {
     setGameState(newState);
     setIsDragging(false);
     setDragFrom(null);
+    playMoveSound();
   };
 
   const tryMoveToFoundation = (card: Card, fromPile: number | null): boolean => {
@@ -488,6 +514,7 @@ function App() {
         newState.moves++;
         newState.score = calculateScore(newState);
         setGameState(newState);
+        playMoveSound();
         return true;
       }
     }
@@ -549,10 +576,10 @@ function App() {
             opacity: 0.8,
           }}
         >
-          {('source' in dragFrom && dragFrom.source === 'waste') ? (
+          {('source' in dragFrom && dragFrom.source === 'waste' && gameState.waste[0]) ? (
             <CardComponent card={gameState.waste[0]} />
           ) : (
-            'pile' in dragFrom && (
+            'pile' in dragFrom && gameState.tableau[dragFrom.pile] ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '-100px' }}>
                 {gameState.tableau[dragFrom.pile].slice(dragFrom.index).map((card, idx) => (
                   <div key={card.id} style={{ marginTop: idx > 0 ? '-100px' : '0' }}>
@@ -560,7 +587,7 @@ function App() {
                   </div>
                 ))}
               </div>
-            )
+            ) : null
           )}
         </div>
       )}
