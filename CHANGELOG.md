@@ -62,13 +62,50 @@ All notable changes to the Solitaire game project are documented in this file.
 - **Result**: Cleaner foundation area, less visual clutter
 - **Files Modified**: Foundation.tsx, Foundation.css
 
-### Fixed (January 16, 2026)
-- ✅ Missing flip sound on foundation drag-drop
-- ✅ Draw button playing wrong sound (now plays flip.wav)
-- ✅ App.tsx file bloat - refactored to manageable size
-- ✅ Audio feedback not differentiated by action type
-- ✅ Deck pile appearance - added stacked card visual
-- ✅ Foundation pile count clutter - removed unnecessary indicators
+#### UI Headers Cleanup 📌
+- **Removed**: Foundation and Tableau h3 headings
+- **Reason**: Cleaner layout, better alignment with deck/waste sections
+- **Result**: Streamlined interface without section labels
+- **Files Modified**: Foundation.tsx, Foundation.css, Tableau.tsx, Tableau.css
+
+#### Enhanced Deck Display 🎴
+- **Added**: Deck badge showing card count (even when 0)
+- **Added**: Retry icon (↻) when deck is empty
+- **Result**: Clear visual feedback about deck state
+- **Files Modified**: Deck.tsx, Deck.css
+
+#### Splash Screen with Logo 🎮
+- **Added**: Full-screen welcome overlay on page load
+- **Features**:
+  - Spade logo (♠) with pulsing animation
+  - "Solitaire" title with Turkish subtitle ("Klasik Kart Oyunu")
+  - "YENİ OYUN" button (Turkish, uppercase with proper İ character)
+  - Plays deal.mp3 and starts new game on button click
+  - Smooth fade-in and slide-up animations
+  - Responsive design for mobile
+- **Files Created**: SplashScreen.tsx, SplashScreen.css
+- **Commit**: `ca8e2f7`
+
+#### Victory Confetti Animation 🎉
+- **Added**: 50 falling confetti pieces on game win
+- **Features**:
+  - Random emojis: 🎉 🎊 ✨ 🌟 💫 ⭐ 🎈 🏆
+  - Each piece falls from top to bottom with rotation
+  - Random horizontal positioning and staggered timing
+  - Smooth opacity fade out
+  - 3D transform with rotateZ and rotateX
+  - Responsive sizing for mobile
+- **Files Created**: Confetti.tsx, Confetti.css
+- **Commit**: `7453261`
+
+### Fixed (January 16, 2026 - CONTINUATION)
+- ✅ Foundation heading removed for cleaner layout
+- ✅ Tableau heading removed for cleaner layout
+- ✅ Deck badge now shows 0 when empty
+- ✅ Turkish character rendering (proper İ in "YENİ OYUN")
+- ✅ Missing animation on victory screen
+
+### Technical Improvements (January 16, 2026 - CONTINUATION)
 
 ## [Unreleased]
 
