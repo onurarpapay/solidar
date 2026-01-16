@@ -39,7 +39,6 @@ export const Foundation: React.FC<FoundationProps> = ({
             onMouseUp={() => onFoundationDragDrop?.(suit)}
           >
             <div className="pile-label">{symbol}</div>
-            <div className="pile-count">{cards.length}/13</div>
             {cards.length > 0 && (
               <CardComponent card={cards[cards.length - 1]} />
             )}
