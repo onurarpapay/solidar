@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Deck } from './components/Deck';
 import { Foundation } from './components/Foundation';
 import { Tableau } from './components/Tableau';
 import { Stats } from './components/Stats';
 import { CardComponent } from './components/Card';
+import { SplashScreen } from './components/SplashScreen';
 import { useGameLogic } from './hooks/useGameLogic';
 import { useDragAndDrop } from './hooks/useDragAndDrop';
 import { useGameHandlers } from './hooks/useGameHandlers';
@@ -13,6 +14,8 @@ import { playTableauMoveSound, playFlipSound, playMoveSound, playDealSound, play
 import './App.css';
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+  
   // Game logic
   const { gameState, setGameState, history, setHistory, copyGameState, handleDrawCard, handleNewGame, handleUndo } = useGameLogic();
   
@@ -32,10 +35,12 @@ function App() {
   // Audio initialization
   useAudio();
   
-  // Play deal sound on first load
-  useEffect(() => {
+  // Handle splash screen play button
+  const handleSplashPlay = () => {
     playDealSound();
-  }, []);
+    handleNewGame();
+    setShowSplash(false);
+  };
 
   // Ctrl+Q - Secret win shortcut
   useEffect(() => {
@@ -231,6 +236,8 @@ function App() {
           )}
         </div>
       )}
+
+      {showSplash && <SplashScreen onPlayClick={handleSplashPlay} />}
 
       <header className="app-header">
         <h1>Solitaire Oyunu</h1>
