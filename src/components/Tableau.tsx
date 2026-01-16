@@ -30,7 +30,6 @@ export const Tableau: React.FC<TableauProps> = ({
 }) => {
   return (
     <div className="tableau">
-      <h3>Oyun Alanı (Tableau)</h3>
       <div className="tableau-piles">
         {piles.map((pile, pileIndex) => (
           <div

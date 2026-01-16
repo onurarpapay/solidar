@@ -29,7 +29,6 @@ export const Foundation: React.FC<FoundationProps> = ({
 
   return (
     <div className="foundation">
-      <h3>Temel (Foundation)</h3>
       <div className="foundation-piles">
         {piles.map(({ suit, cards, symbol }) => (
           <div
