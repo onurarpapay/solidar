@@ -4,6 +4,55 @@ All notable changes to the Solitaire game project are documented in this file.
 
 ## [Unreleased]
 
+### Added (January 16, 2026 - MAJOR REFACTOR & AUDIO ENHANCEMENT)
+
+#### App.tsx Refactoring 🏗️
+- **Goal**: Reduce component size from 653 to 264 lines (60% reduction)
+- **Approach**: Extracted logic into 4 custom hooks:
+  - `useGameLogic` - Game state, history, undo/new game logic
+  - `useDragAndDrop` - Drag state and mouse event handlers
+  - `useGameHandlers` - Click handlers and card move validation
+  - `useAudio` - Audio context initialization
+- **Result**: Clean, maintainable component structure with single responsibility
+- **Files Created**: 4 new hook files in `src/hooks/`
+- **Impact**: Easier to test, debug, and extend
+
+#### Professional Audio File Integration 🎵
+- **Replaced**: Synthetic Web Audio with high-quality audio files
+- **Files Added**: 3 sound effects in `public/sounds/`
+  - `deal.mp3` - Game initialization and new game start
+  - `flip.wav` - Card reveal and deck draw
+  - `move.wav` - Card movement (tableau only)
+- **Integration**: New `playAudioFile()` function for file playback
+- **Volume**: Set to 0.7 for comfortable listening
+
+#### Contextual Audio Feedback 🎼
+- **Deal Sound**: Plays on game load and new game (start signal)
+- **Flip Sound**: Triggers on deck draw and card reveal (flip.wav)
+- **Tableau Move**: Plays on tableau-to-tableau and waste-to-tableau moves (move.wav)
+- **Foundation Move**: Keeps original Web Audio two-tone sound (440Hz → 550Hz positive feedback)
+- **Win Sound**: Major chord (C-E-G) synthesized with Web Audio
+- **Result**: Rich audio feedback for every game action without Web Audio API overhead for file playback
+
+#### Secret Debug Shortcut 🔓
+- **Shortcut**: Ctrl+Q (Quick win)
+- **Function**: Instantly triggers win screen with audio celebration
+- **Purpose**: Development/testing convenience
+- **Security**: Not advertised to end users
+
+#### Audio Context Improvement 🔊
+- **Fixed**: Removed test beep on first user interaction
+- **Now**: AudioContext silently initializes on first click
+- **Result**: No unexpected sound on page load, cleaner UX
+
+### Fixed (January 16, 2026)
+- ✅ Missing flip sound on foundation drag-drop
+- ✅ Draw button playing wrong sound (now plays flip.wav)
+- ✅ App.tsx file bloat - refactored to manageable size
+- ✅ Audio feedback not differentiated by action type
+
+## [Unreleased]
+
 ### Added (January 15, 2026 - PART 2: SOUND COMPLETION)
 
 #### Draw Card Sound Effect 🎵

@@ -1,6 +1,13 @@
-// Web Audio API - Ses efektleri
+// Web Audio API - Ses efektleri ve dosyaları
 
 let audioContext: AudioContext | null = null;
+
+// Ses dosyaları
+const SOUNDS = {
+  deal: '/sounds/deal.mp3',
+  flip: '/sounds/flip.wav',
+  move: '/sounds/move.wav',
+};
 
 const getAudioContext = (): AudioContext => {
   if (!audioContext) {
@@ -29,6 +36,20 @@ const ensureAudioContextRunning = (): void => {
   }
 };
 
+// Ses dosyasını yükle ve oynat
+const playAudioFile = (filePath: string): void => {
+  try {
+    ensureAudioContextRunning();
+    const audio = new Audio(filePath);
+    audio.volume = 0.7;
+    audio.play().catch((e) => {
+      console.error('❌ Failed to play audio:', e);
+    });
+  } catch (e) {
+    console.error('❌ Audio error:', e);
+  }
+};
+
 export const playSound = (frequency: number, duration: number, type: 'sine' | 'triangle' = 'sine') => {
   try {
     ensureAudioContextRunning();
@@ -52,15 +73,31 @@ export const playSound = (frequency: number, duration: number, type: 'sine' | 't
   }
 };
 
-// Kart hamle sesi
-export const playMoveSound = () => {
-  playSound(440, 0.1, 'sine');
+// Oyun başlangıç sesi (deal.mp3)
+export const playDealSound = () => {
+  playAudioFile(SOUNDS.deal);
 };
 
-// Kart çevirme sesi
+// Kart çevirme sesi (flip.wav)
 export const playFlipSound = () => {
-  playSound(600, 0.08, 'triangle');
+  playAudioFile(SOUNDS.flip);
 };
+
+// Tableau taşıma sesi (move.wav)
+export const playTableauMoveSound = () => {
+  playAudioFile(SOUNDS.move);
+};
+
+// Foundation taşıma sesi (iki tonlu olumlu feedback)
+export const playFoundationMoveSound = () => {
+  // İlk bip - düşük ton
+  playSound(440, 0.1, 'sine');
+  // İkinci bip - daha yüksek ton (olumlu feedback)
+  setTimeout(() => playSound(550, 0.1, 'sine'), 80);
+};
+
+// Eski ad - backward compatibility (foundation için)
+export const playMoveSound = playFoundationMoveSound;
 
 // Oyun kazanma sesi
 export const playWinSound = () => {
