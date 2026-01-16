@@ -5,6 +5,7 @@ import { Tableau } from './components/Tableau';
 import { Stats } from './components/Stats';
 import { CardComponent } from './components/Card';
 import { SplashScreen } from './components/SplashScreen';
+import { Confetti } from './components/Confetti';
 import { useGameLogic } from './hooks/useGameLogic';
 import { useDragAndDrop } from './hooks/useDragAndDrop';
 import { useGameHandlers } from './hooks/useGameHandlers';
@@ -238,6 +239,8 @@ function App() {
       )}
 
       {showSplash && <SplashScreen onPlayClick={handleSplashPlay} />}
+
+      {gameState.gameWon && <Confetti />}
 
       <header className="app-header">
         <h1>Solitaire Oyunu</h1>
