@@ -45,11 +45,30 @@ All notable changes to the Solitaire game project are documented in this file.
 - **Now**: AudioContext silently initializes on first click
 - **Result**: No unexpected sound on page load, cleaner UX
 
+#### Deck Visual Enhancement 🃏
+- **Problem**: Deck pile didn't look like a card pile
+- **Solution**: Created 3-layer stacked card effect with box-shadow
+- **Features**:
+  - Diagonal stripe pattern matching card back design
+  - Blue gradient background for depth
+  - Blue badge showing remaining deck count (top-right corner)
+  - Removed text labels for cleaner design
+  - Enhanced hover effects with smooth transitions
+- **Result**: Deck now looks like realistic card pile with visual depth
+
+#### Foundation UI Cleanup 🧹
+- **Removed**: Redundant "0/13" pile count indicators
+- **Reason**: Count serves no purpose - players see cards naturally accumulating
+- **Result**: Cleaner foundation area, less visual clutter
+- **Files Modified**: Foundation.tsx, Foundation.css
+
 ### Fixed (January 16, 2026)
 - ✅ Missing flip sound on foundation drag-drop
 - ✅ Draw button playing wrong sound (now plays flip.wav)
 - ✅ App.tsx file bloat - refactored to manageable size
 - ✅ Audio feedback not differentiated by action type
+- ✅ Deck pile appearance - added stacked card visual
+- ✅ Foundation pile count clutter - removed unnecessary indicators
 
 ## [Unreleased]
 
