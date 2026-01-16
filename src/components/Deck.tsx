@@ -31,9 +31,12 @@ export const Deck: React.FC<DeckProps> = ({
       <div className="deck-piles">
         <div className="deck-pile" onClick={onDrawCard}>
           {deck.length > 0 ? (
-            <div className="deck-back">Depo ({deck.length})</div>
+            <>
+              <div className="deck-back"></div>
+              <div className="deck-badge">{deck.length}</div>
+            </>
           ) : (
-            <div className="empty-deck">0</div>
+            <div className="empty-deck"></div>
           )}
         </div>
         <div className="waste-pile" onClick={onWasteCardClick}>
