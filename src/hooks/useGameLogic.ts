@@ -6,7 +6,7 @@ import {
   isGameWon,
   calculateScore,
 } from '../types/game';
-import { playWinSound, playDrawSound, playDealSound, playFlipSound } from '../utils/sound';
+import { playWinSound, playDealSound, playFlipSound } from '../utils/sound';
 
 // Helper function to deep copy game state for immutability
 const copyGameState = (state: GameState): GameState => ({

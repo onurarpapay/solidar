@@ -7,6 +7,7 @@ const SOUNDS = {
   deal: '/sounds/deal.mp3',
   flip: '/sounds/flip.wav',
   move: '/sounds/move.wav',
+  win: '/sounds/win.wav',
 };
 
 const getAudioContext = (): AudioContext => {
@@ -99,15 +100,7 @@ export const playFoundationMoveSound = () => {
 // Eski ad - backward compatibility (foundation için)
 export const playMoveSound = playFoundationMoveSound;
 
-// Oyun kazanma sesi
+// Oyun kazanma sesi (win.wav)
 export const playWinSound = () => {
-  const notes = [523, 659, 784]; // C, E, G (major chord)
-  notes.forEach((freq, i) => {
-    setTimeout(() => playSound(freq, 0.3, 'sine'), i * 100);
-  });
-};
-
-// Depo açma sesi
-export const playDrawSound = () => {
-  playSound(350, 0.06, 'sine');
+  playAudioFile(SOUNDS.win);
 };
