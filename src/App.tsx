@@ -21,7 +21,7 @@ function App() {
   const { gameState, setGameState, history, setHistory, copyGameState, handleDrawCard, handleNewGame, handleUndo } = useGameLogic();
   
   // Drag and drop
-  const { isDragging, dragFrom, dragPos, handleCardMouseDown, handleWasteMouseDown, resetDrag, setDragFrom, setIsDragging } = useDragAndDrop();
+  const { isDragging, dragFrom, dragPos, handleCardMouseDown, handleWasteMouseDown, resetDrag } = useDragAndDrop();
   
   // Click handlers
   const { handleCardClick, handleWasteCardClick, handleFoundationClick, handleCardDoubleClick, handleWasteDoubleClick } = useGameHandlers({
@@ -30,7 +30,6 @@ function App() {
     history,
     setHistory,
     copyGameState,
-    resetDrag,
   });
   
   // Audio initialization

@@ -5,7 +5,6 @@ import {
   calculateScore,
 } from '../types/game';
 import { playTableauMoveSound, playMoveSound, playFlipSound } from '../utils/sound';
-import type { DragFromType } from './useDragAndDrop';
 
 interface GameHandlerDeps {
   gameState: GameState;
@@ -13,7 +12,6 @@ interface GameHandlerDeps {
   history: GameState[];
   setHistory: (history: GameState[]) => void;
   copyGameState: (state: GameState) => GameState;
-  resetDrag: () => void;
 }
 
 export const useGameHandlers = ({
@@ -22,7 +20,6 @@ export const useGameHandlers = ({
   history,
   setHistory,
   copyGameState,
-  resetDrag,
 }: GameHandlerDeps) => {
   
   const handleCardClick = (pileIndex: number, cardIndex: number) => {
@@ -181,15 +178,6 @@ export const useGameHandlers = ({
     newState.score = calculateScore(newState);
     setGameState(newState);
     playMoveSound();
-  };
-
-  const handleDragDrop = (toPile: number) => {
-    const dragFrom = null; // This will be provided via closure/props
-    // Implementation will be handled in main component
-  };
-
-  const handleFoundationDragDrop = (suit: string) => {
-    // Implementation will be handled in main component
   };
 
   const tryMoveToFoundation = (card: Card, fromPile: number | null): boolean => {

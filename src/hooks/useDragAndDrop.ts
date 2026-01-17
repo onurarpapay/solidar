@@ -61,7 +61,5 @@ export const useDragAndDrop = () => {
     handleCardMouseDown,
     handleWasteMouseDown,
     resetDrag,
-    setDragFrom,
-    setIsDragging,
   };
 };
